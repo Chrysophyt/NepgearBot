@@ -35,7 +35,7 @@ var options = {
   key: privateKey,
   cert: certificate
 };
-var server = https.createServer(credentials, app)
+var server = https.createServer( options, app)
 server.listen(port, function () {
   console.log("Express server listening on port "+port);
 });

@@ -1,2 +1,2 @@
 # NepgearBot
-NepgearBot
+Instance for NepgearBot

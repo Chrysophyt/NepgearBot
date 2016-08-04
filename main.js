@@ -1,9 +1,10 @@
 var TelegramBot = require('node-telegram-bot-api');
 
 var token = '264518223:AAGeLZ5-gVfH6ZgILNFrvFlEyZtpk_dzLx0';
-var port = 8080;
+var port = process.env.OPENSHIFT_NODEJS_PORT;
 console.log("Port is "+port);
-var host = "0.0.0.0";
+var host = process.env.OPENSHIFT_NODEJS_IP;
+var domain = process.env.OPENSHIFT_APP_DNS;
 
 // Setup polling way
 console.log("Starting NepgearBot");
@@ -35,12 +36,12 @@ var options = {
   key: privateKey,
   cert: certificate
 };
-var server = https.createServer( options, app)
+var server = http.createServer( app)
 server.listen(port, function () {
   console.log("Express server listening on port "+port);
 });
 
-bot.setWebHook('https://nepgearbot-nepgearbot.44fs.preview.openshiftapps.com:8080/nepgears',__dirname+'/crt.pem');
+bot.setWebHook('https://nepgearbot-nepgearbot.44fs.preview.openshiftapps.com:443/nepgears',__dirname+'/crt.pem');
 var starttext = "Ini adalah NepgearBot, bot milik Ryo Kenrie Wongso (Damillora). Saat ini hanya untuk coba-coba. Versi adalah 0.2";
 var helptext = "NepgearBot: bot punya Ryo. Lapor semua bug ke Ryo.";
 console.log("Started NepgearBot");

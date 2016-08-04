@@ -40,7 +40,7 @@ server.listen(port, function () {
   console.log("Express server listening on port "+port);
 });
 
-bot.setWebHook('http://nepgearbot-nepgearbot.44fs.preview.openshiftapps.com:80/'+token,__dirname+'/crt.pem');
+bot.setWebHook('https://nepgearbot-nepgearbot.44fs.preview.openshiftapps.com:80/'+token,__dirname+'/crt.pem');
 var starttext = "Ini adalah NepgearBot, bot milik Ryo Kenrie Wongso (Damillora). Saat ini hanya untuk coba-coba. Versi adalah 0.2";
 var helptext = "NepgearBot: bot punya Ryo. Lapor semua bug ke Ryo.";
 console.log("Started NepgearBot");

@@ -54,6 +54,13 @@ bot.onText(/\/nep/, function (msg) {
   bot.sendMessage(fromId, nep);
 });
 
+bot.onText(/\/lapar/, function (msg) {
+  console.log("/");
+  var fromId = msg.chat.id;
+  var nep = "Traktirin dong!"
+  bot.sendMessage(fromId, nep);
+});
+
 bot.onText(/\/anjas/, function (msg, match) {
   console.log("/anjas");
   var fromId = msg.chat.id;

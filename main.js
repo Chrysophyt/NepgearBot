@@ -7,7 +7,7 @@ var host = "0.0.0.0";
 
 // Setup polling way
 console.log("Starting NepgearBot");
-var bot = new TelegramBot(token, {});
+var bot = new TelegramBot(token, {polling: true});
 //bot.setWebHook('https://http://nepgearbot-nepgearbot.44fs.preview.openshiftapps.com:'+port+'/'+token, __dirname+'/crt.pem');
 var bodyParser = require('body-parser');
 var express = require('express');

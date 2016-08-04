@@ -1,10 +1,9 @@
 var TelegramBot = require('node-telegram-bot-api');
 
 var token = '264518223:AAGeLZ5-gVfH6ZgILNFrvFlEyZtpk_dzLx0';
-var port = process.env.OPENSHIFT_NODEJS_PORT;
+var port = 80;
 console.log("Port is "+port);
-var host = process.env.OPENSHIFT_NODEJS_IP;
-var domain = process.env.OPENSHIFT_APP_DNS;
+var host = "0.0.0.0";
 
 // Setup polling way
 console.log("Starting NepgearBot");

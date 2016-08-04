@@ -1,19 +1,17 @@
-var TelegramBot = require('node-telegram-bot-api');
-
-var token = '264518223:AAGeLZ5-gVfH6ZgILNFrvFlEyZtpk_dzLx0';
-var port = 80;
-console.log("Port is "+port);
-var host = "0.0.0.0";
-
-// Setup polling way
-console.log("Starting NepgearBot");
-var bot = new TelegramBot(token, {polling: true});
-//bot.setWebHook('https://http://nepgearbot-nepgearbot.44fs.preview.openshiftapps.com:'+port+'/'+token, __dirname+'/crt.pem');
 var bodyParser = require('body-parser');
 var express = require('express');
 var fs = require('fs');
-var https = require('https');
 var http = require('http');
+
+var TelegramBot = require('node-telegram-bot-api');
+
+var token = '264518223:AAGeLZ5-gVfH6ZgILNFrvFlEyZtpk_dzLx0';
+var port = 8080;
+console.log("Port is "+port);
+var host = "0.0.0.0";
+
+console.log("Starting NepgearBot");
+var bot = new TelegramBot(token, {polling: true});
 
 var app = express();
 app.use(bodyParser.json());
@@ -29,12 +27,6 @@ app.get('/', function(request, response) {
   response.sendStatus(200);
 });
 
-var privateKey = fs.readFileSync(__dirname + '/key.pem').toString();
-var certificate = fs.readFileSync(__dirname + '/crt.pem').toString();
-var options = {
-  key: privateKey,
-  cert: certificate
-};
 var server = http.createServer( app)
 server.listen(port, function () {
   console.log("Express server listening on port "+port);

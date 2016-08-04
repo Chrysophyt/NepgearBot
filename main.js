@@ -27,7 +27,6 @@ app.post('/' + token, function (req, res) {
 app.get('/', function(request, response) {
   console.log("Get request on port");
   response.sendStatus(200);
-  response.json({version: 0.2});
 });
 
 var privateKey = fs.readFileSync(__dirname + '/key.pem').toString();

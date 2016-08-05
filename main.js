@@ -333,7 +333,7 @@ function werewolfaction(){
             if(werewolfRoles[i] == "werewolf"){
                 var textarr = [];
                 var callbackarr = [];
-                for (int j = 0;j < werewolfPlayersName.length;j++){
+                for (var j = 0;j < werewolfPlayersName.length;j++){
                     if (werewolfPlayersId[i] == werewolfPlayersId[j]) {
                         
                     }else{

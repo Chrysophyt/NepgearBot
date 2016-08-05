@@ -10,6 +10,19 @@ var port = 8080;
 console.log("Port is "+port);
 var host = "0.0.0.0";
 
+var forcereplyopts = {
+  reply_markup: JSON.stringify(
+    {
+      force_reply: true
+    }
+  )};
+
+var inlineopts = {
+  reply_markup: JSON.stringify(
+    {
+      inline_keyboard: {{{text: Nep}}}
+    }
+  )};
 console.log("Starting NepgearBot");
 var bot = new TelegramBot(token, {polling: true});
 
@@ -42,7 +55,15 @@ bot.onText(/\/nep/, function (msg) {
   console.log("/nep");
   var fromId = msg.chat.id;
   var nep = "Nep"
-  bot.sendMessage(fromId, nep);
+  bot.sendMessage(fromId, nep,inlineopts).then(function (sended) {
+    var chatId = sended.chat.id;
+    var messageId = sended.message_id;
+    bot.onReplyToMessage(chatId, messageId, function (message) {
+      bot.sendMessage(message.chat.id,"Nep!");
+    });
+  });
+
+
 });
 
 

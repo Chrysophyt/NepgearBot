@@ -59,6 +59,13 @@ bot.onText(/\/anjas/, function (msg, match) {
   bot.sendMessage(fromId, userFirst + ": Anjas.");
 });
 
+bot.onText(/\/ayo/, function (msg, match) {
+  console.log("/ayo");
+  var fromId = msg.chat.id;
+  var userFirst = msg.from.first_name;
+  bot.sendMessage(fromId, userFirst + ": Ayo!");
+});
+
 bot.onText(/\/lemot/, function (msg, match) {
   console.log("/lemot");
   var fromId = msg.chat.id;

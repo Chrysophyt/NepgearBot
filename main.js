@@ -146,6 +146,21 @@ bot.onText(/\/anjas/, function (msg, match) {
   bot.sendMessage(fromId, userFirst + ": Anjas.");
 });
 
+bot.onText(/\/astaga/, function (msg, match) {
+  console.log("/astaga");
+  var fromId = msg.chat.id;
+  var userFirst = msg.from.first_name;
+  bot.sendMessage(fromId, userFirst + ": Astaganaga!");
+});
+
+bot.onText(/\/ngakak/, function (msg, match) {
+  console.log("/ngakak");
+  var fromId = msg.chat.id;
+  var userFirst = msg.from.first_name;
+  bot.sendMessage(fromId, userFirst + ": hahahahawkwkwkwk");
+});
+
+
 bot.onText(/\/hore/, function (msg, match) {
   console.log("/hore");
   var fromId = msg.chat.id;

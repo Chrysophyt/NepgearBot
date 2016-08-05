@@ -116,15 +116,14 @@ bot.onText(/\/waifu/, function (msg) {
       console.log(waifuId);
       con.query("SELECT * FROM waifu WHERE user_id = "+waifuId,function(err,rows){
       if(err) throw err;
-      console.log(rows.length);
+      console.log(rows);
       if (rows.length == 0 ){
           bot.sendMessage(fromId,"Orang ini belum punya waifu :v");
       }else{
-          bot.sendMessage(fromId,"Waifu orang ini adalah "+rows[1].waifu);
+          bot.sendMessage(fromId,"Waifu orang ini adalah "+rows);
       }
         
       });
-      bot.sendMessage(message.chat.id,"Waifu set!");
 });
 
 bot.onText(/\/lapar/, function (msg) {

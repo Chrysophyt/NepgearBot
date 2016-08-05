@@ -73,7 +73,25 @@ bot.onText(/\/nep/, function (msg) {
   console.log("/nep");
   var fromId = msg.chat.id;
   var nep = "Nep"
-  bot.sendMessage(fromId, nep,inlineopts).then(function (sended) {
+  
+  var firstopts = {}
+  firstopts.resize_keyboard = true;
+  firstopts.one_time_keyboard = true;
+  var myStringArray = ["Nep","NepNep"]
+  firstopts.keyboard = []
+  for (var i =0;i < myStringArray.length;i++){
+      var arrayer = [];
+      arrayer.push(myStringArray[i]);
+      keyboard.push(arrayer);
+  }
+  /*var firstopts =     {
+      keyboard: [["Nep"]] ,
+      resize_keyboard: true ,
+      one_time_keyboard: true
+    }*/
+  var secondopts = JSON.stringify(firstopts);
+  var thirdopts = { reply_markup: secondopts }
+  bot.sendMessage(fromId, nep,thirdopts).then(function (sended) {
     var chatId = sended.chat.id;
     var messageId = sended.message_id;
     bot.onReplyToMessage(chatId, messageId, function (message) {
@@ -81,7 +99,11 @@ bot.onText(/\/nep/, function (msg) {
     });
   });
 });
-
+bot.on("callback_query",function(msg){
+    var user = msg.from.id;
+    var data = msg.data;
+    console.log(data);
+});
 bot.onText(/\/setwaifu/, function (msg) {
   console.log("/setwaifu");
   if (msg.chat.type == "private" ) {

@@ -84,7 +84,8 @@ bot.onText(/\/nep/, function (msg) {
 
 bot.onText(/\/setwaifu/, function (msg) {
   console.log("/setwaifu");
-  var fromId = msg.chat.id;
+  if (msg.chat.type == "private" ) {
+      var fromId = msg.chat.id;
   var waifuId = msg.from.id;
   var nep = "Ketik nama waifu-mu :v"
   bot.sendMessage(waifuId, nep,forcereplyopts).then(function (sended) {
@@ -106,6 +107,11 @@ bot.onText(/\/setwaifu/, function (msg) {
       bot.sendMessage(message.chat.id,"Waifu berhasil diset!");
     });
   });
+  }
+  else
+  {
+     bot.sendMessage(fromId,"Perintah hanya dapat digunakan dalam personal chat dengan bot.");
+  }
 });
 
 

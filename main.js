@@ -231,10 +231,11 @@ bot.onText(/\/help/, function (msg) {
 
  bot.onText(/\/joinwerewolf/, function (msg) {
   console.log("/joinwerewolf");
+  console.log(msg.chat.type);
   var fromId = msg.chat.id;
   var userFirst = msg.from.first_name;
   var userLast = msg.from.last_name || "";
-  if (msg.type == "group"){
+  if (msg.chat.type == "group"){
     if(werewolfGroupId == fromId){
       werewolfPlayersId.push(msg.from.id);
       werewolfPlayersName.push(userFirst+" "+userLast);
@@ -264,10 +265,11 @@ function startwerewolf(){
 
  bot.onText(/\/createwerewolf/, function (msg) {
   console.log("/createwerewolf");
+  console.log(msg.chat.type);
   var fromId = msg.chat.id;
   var userFirst = msg.from.first_name;
   var userLast = msg.from.last_name || "";
-  if (msg.type == "group"){
+  if (msg.chat.type == "group"){
       if (werewolfGroupId == 0){
           werewolfGroupId = msg.chat.id;
           werewolfGroupName = msg.chat.title;

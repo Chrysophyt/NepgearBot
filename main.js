@@ -16,7 +16,7 @@ var werewolfIsAlive = [];
 var werewolfHasAction = [];
 var werewolfKilled = [];
 var werewolfText = [];
-
+var werewolfVoted = [];
 var port = 8080;
 console.log("Port is "+port);
 var host = "0.0.0.0";
@@ -163,9 +163,16 @@ bot.on("callback_query",function(msg){
             bot.sendMessage(chatId,"Anda telah memutuskan untuk memakan "+werewolfPlayersName[werewolfPlayersId.indexOf(command.split(",")[1])]);
         werewolfKilled.push(command.split(",")[1]);
         werewolfHasAction[werewolfPlayersId.indexOf(command.split(",")[1])] = "yes";
-        werewolfText.push(werewolfPlayersName[werewolfPlayersId.indexOf(command.split(",")[1])]+" ditemukan telah hilang telinga kirinya! Ada sesuatu yang aneh...");
+        werewolfText.push(werewolfPlayersName[werewolfPlayersId.indexOf(command.split(",")[1])]+" ditemukan telah hilang telinga kirinya! Ada sesuatu yang aneh. "+werewolfPlayersName[werewolfPlayersId.indexOf(command.split(",")[1])]+" adalah seorang "+werewolfRoles[werewolfPlayersId.indexOf(command.split(",")[1])]);
         }
         
+    }else if(command.split(",")[0] == "vote"){
+        if (werewolfHasAction[werewolfPlayersId.indexOf(command.split(",")[1])] == "yes") {
+            bot.sendMessage(chatId,"Udah milih, woi!");
+        }else{
+            bot.sendMessage(werewolfGroupId,werewolfPlayersName[werewolfPlayersId.indexOf(chatId)]+" telah memutuskan untuk mengeksekusi "+werewolfPlayersName[werewolfPlayersId.indexOf(command.split(",")[1])]);
+        werewolfVoted.push(command.split(",")[1]);
+        }
     }
     bot.answerCallbackQuery(msg.id,"",false);
 });
@@ -305,6 +312,8 @@ werewolfIsAlive = [];
 werewolfHasAction = [];
 werewolfKilled = [];
 werewolfText = [];
+werewolfVoted = [];
+    
 }
 
 function day(){
@@ -322,12 +331,55 @@ function day(){
     }
     checkstatus();
     werewolfText = [];
+    bot.sendMessage(werewolfGroupId,"Para warga desa mempunyai waktu 120 detik untuk berdiskusi / pura-pura ilang sinyal / mengaku menjadi warga desa");
+    setTimeout(function(){bot.sendMessage(werewolfGroupId,"Para warga memiliki waktu 120 detik untuk voting.");},120000);
+    setTimeout(executor,121000);
+    setTimeout(executing,241000);
+    setTimeout(night,242000);
 }
 
 function killing(){
     for(var i = 0;i<werewolfKilled.length;i++){
         werewolfIsAlive[werewolfPlayersId.indexOf(werewolfKilled[i])] = "no";
     }
+}
+function executor(){
+for (var i = 0; i < werewolfPlayersName.length;i++){
+        if(werewolfIsAlive[i] == "yes"){
+                var textarr = [];
+                var callbackarr = [];
+                for (var j = 0;j < werewolfPlayersName.length;j++){
+                    if (werewolfPlayersId[i] == werewolfPlayersId[j]) {
+                        
+                    }else{
+                    textarr.push(werewolfPlayersName[j]);
+                    callbackarr.push("vote,"+werewolfPlayersId[j]);
+                    }
+                }
+                var thirdopts = generatebuttons(textarr,callbackarr,werewolfPlayersId[i]);
+                bot.sendMessage(werewolfPlayersId[i],"Siapa yang menurut Anda bersalah, dan patut untuk dieksekusi?",thirdopts);
+        }
+    }  
+}
+function mode(arr) {
+    var numMapping = {};
+    var greatestFreq = 0;
+    var mode;
+    arr.forEach(function findMode(number) {
+        numMapping[number] = (numMapping[number] || 0) + 1;
+
+        if (greatestFreq < numMapping[number]) {
+            greatestFreq = numMapping[number];
+            mode = number;
+        }
+    });
+    return +mode;
+}
+
+function executing(){
+    var executed = mode(werewolfVoted);
+    werewolfText.push("Warga menyetujui untuk mengeksekusi "+werewolfPlayersName[werewolfPlayersId.indexOf(executed)]+". "+werewolfPlayersName[werewolfPlayersId.indexOf(executed)]" adalah seorang "+werewolfRoles[werewolfPlayersId.indexOf(executed)]);
+    werewolfIsAlive[werewolfPlayersId.indexOf(executed)] == "no";
 }
 function werewolfaction(){
     for (var i = 0; i < werewolfPlayersName.length;i++){

@@ -13,7 +13,6 @@ var werewolfPlayersId = [];
 var werewolfPlayersName = [];
 var werewolfRoles = [];
 var werewolfIsAlive = [];
-var werewolfKillingThisRound = [];
 var werewolfHasAction = [];
 var werewolfKilled = [];
 var werewolfText = [];
@@ -158,9 +157,15 @@ bot.on("callback_query",function(msg){
         bot.sendMessage(chatId,"Nep!Nep!");
         
     }else if(command.split(",")[0] == "kill"){
-        bot.sendMessage(chatId,"Anda telah memutuskan untuk memakan "+werewolfPlayersName[werewolfPlayersId.indexOf(command.split(",")[1])]);
+        if (werewolfHasAction[werewolfPlayersId.indexOf(command.split(",")[1])] == "yes") {
+            bot.sendMessage(chatId,"Udah kenyang, woi!");
+        }else{
+            bot.sendMessage(chatId,"Anda telah memutuskan untuk memakan "+werewolfPlayersName[werewolfPlayersId.indexOf(command.split(",")[1])]);
         werewolfKilled.push(command.split(",")[1]);
+        werewolfHasAction[werewolfPlayersId.indexOf(command.split(",")[1])] = "yes";
         werewolfText.push(werewolfPlayersName[werewolfPlayersId.indexOf(command.split(",")[1])]+" ditemukan telah hilang telinga kirinya! Ada sesuatu yang aneh...");
+        }
+        
     }
     bot.answerCallbackQuery(msg.id,"",false);
 });
@@ -297,7 +302,6 @@ werewolfPlayersId = [];
 werewolfPlayersName = [];
 werewolfRoles = [];
 werewolfIsAlive = [];
-werewolfKillingThisRound = [];
 werewolfHasAction = [];
 werewolfKilled = [];
 werewolfText = [];
@@ -320,7 +324,6 @@ console.log(werewolfPlayersId);
 console.log(werewolfPlayersName);
 console.log(werewolfRoles);
 console.log(werewolfIsAlive);
-console.log(werewolfKillingThisRound);
 console.log(werewolfHasAction);
 console.log(werewolfKilled);
 console.log(werewolfText);
@@ -361,7 +364,7 @@ function killing(){
 }
 function werewolfaction(){
     for (var i = 0; i < werewolfPlayersName.length;i++){
-        if(werewolfIsAlive[i]){
+        if(werewolfIsAlive[i] == "yes"){
             if(werewolfRoles[i] == "werewolf"){
                 var textarr = [];
                 var callbackarr = [];
@@ -395,6 +398,8 @@ function startwerewolf(){
         action.push("no");
     }
     unrandom.push("werewolf");
+        alive.push("yes");
+        action.push("no");
     var random = shuffle(unrandom);
     werewolfRoles = random;
     werewolfIsAlive = alive;

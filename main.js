@@ -12,7 +12,7 @@ var werewolfGroupName = "";
 var werewolfPlayersId = [];
 var werewolfPlayersName = [];
 var werewolfRoles = [];
-
+var werewolfIsAlive = [];
 var port = 8080;
 console.log("Port is "+port);
 var host = "0.0.0.0";
@@ -257,19 +257,54 @@ bot.onText(/\/help/, function (msg) {
 
 
 function cleanwerewolf(){
-    werewolfGroupId = 0;
-    werewolfGroupName = "";
-    werewolfPlayersId = [];
-    werewolfPlayersName = [];
-    werewolfRoles = [];
+werewolfGroupId = 0;
+werewolfGroupName = "";
+werewolfPlayersId = [];
+werewolfPlayersName = [];
+werewolfRoles = [];
+werewolfIsAlive = [];
 }
 
-
+function checkstatus(){
+    var werewolfcount =0;
+    var villagercount =0;
+    for (var i = 0; i < werewolfPlayersName.length - 1;i++){
+        if(werewolfIsAlive[i]){
+            if(werewolfRoles[i] == "werewolf"){
+                werewolfcount++;
+            }else if(werewolfRoles[i] == "villager"){
+                villagercount++;
+            }
+        }
+    }
+    if (villagercount == 0){
+        if (werewolfcount > 0){
+            bot.sendMessage(werewolfGroupId,"Serigala menang!");
+            cleanwerewolf();
+        }
+    }else{
+        bot.sendMessage(werewolfGroupId, "Malam hari. Kebanyakan orang mulai tidur, namun ada aja yang bangun, berkeliaran dan menjalankan aksinya.");
+        setTimeout(werewolfaction,1000);
+    }
+}
+function werewolfaction(){
+    for (var i = 0; i < werewolfPlayersName.length - 1;i++){
+        if(werewolfIsAlive[i]){
+            if(werewolfRoles[i] == "werewolf"){
+                bot.sendMessage(werewolfPlayersId[i],"Anda bisa membunuh!");
+            }else if(werewolfRoles[i] == "villager"){
+                
+            }
+        }
+    }
+}
 function startwerewolf(){
     console.log("Startwerewolf");
+    
     var unrandom = []
     for (var i = 0; i < werewolfPlayersName.length - 1;i++){
         unrandom.push("villager");
+        werewolfIsAlive.push(true);
     }
     unrandom.push("werewolf");
     var random = shuffle(unrandom);
@@ -277,7 +312,8 @@ function startwerewolf(){
     for (var i = 0; i < werewolfPlayersName.length ;i++){
         console.log(werewolfPlayersName[i]+" is "+werewolfRoles[i]);
     }
-    
+    bot.sendMessage(werewolfGroupId,"Permainan Werewolf@NepgearBot sudah dimulai!");
+    checkstatus();
 }
 function join(msg){
   var fromId = msg.chat.id;

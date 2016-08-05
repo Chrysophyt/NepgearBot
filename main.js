@@ -78,46 +78,6 @@ bot.onText(/\/jualan/, function (msg, match) {
   bot.sendMessage(fromId, "Akua akua, mijon mijon");
 });
 
-
-bot.onText(/\/echo (.+)/, function (msg, match) {
-  console.log("/echo");
-  var fromId = msg.chat.id;
-  var nep = match[1];
-  bot.sendMessage(fromId, nep);
-});
-
-bot.onText(/\/echo@NepgearBot (.+)/, function (msg, match) {
-  console.log("/echo");
-  var fromId = msg.chat.id;
-  var nep = match[1];
-  bot.sendMessage(fromId, nep);
-});
-
-bot.onText(/\/me (.+)/, function (msg, match) {
-  console.log("/me");
-  var fromId = msg.chat.id;
-  var userName = msg.from.first_name;
-  var nep = match[1];
-  bot.sendMessage(fromId, "* "+userName+" "+nep);
-});
-
-bot.onText(/\/me@NepgearBot (.+)/, function (msg, match) {
-  console.log("/me");
-  var fromId = msg.chat.id;
-  var userName = msg.from.first_name;
-  var nep = match[1];
-  bot.sendMessage(fromId, "*"+userName+" "+nep);
-});
-
-/*
-bot.onText(/\/nep (.+)/, function (msg, match) {
-  console.log("/nep");
-  var fromId = msg.chat.id;
-  var nep = "nep"
-  bot.sendMessage(fromId, nep);
-});
-*/
-
 bot.onText(/\/start/, function (msg) {
   console.log("/start");
   var fromId = msg.chat.id;

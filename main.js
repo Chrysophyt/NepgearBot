@@ -145,9 +145,9 @@ bot.on("callback_query",function(msg){
     var user = msg.from.id;
     var data = msg.data;
     if(msg.data == "nep"){
-        bot.sendMessage(msg.chat.id,"Nep!");
+        bot.sendMessage(msg.from.id,"Nep!");
     }else if(msg.data == "nepnep"){
-        bot.sendMessage(msg.chat.id,"Nep!Nep!");
+        bot.sendMessage(msg.from.id,"Nep!Nep!");
         
     }else{
         

@@ -144,6 +144,14 @@ bot.onText(/\/nep/, function (msg) {
 bot.on("callback_query",function(msg){
     var user = msg.from.id;
     var data = msg.data;
+    if(msg.data == "nep"){
+        bot.sendMessage(msg.chat.id,"Nep!");
+    }else if(msg.data == "nepnep"){
+        bot.sendMessage(msg.chat.id,"Nep!Nep!");
+        
+    }else{
+        
+    }
     console.log(msg.from.first_name+":"+data);
 });
 bot.onText(/\/setwaifu/, function (msg) {

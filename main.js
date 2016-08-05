@@ -17,14 +17,14 @@ var werewolfIsAlive = [];
 var port = 8080;
 console.log("Port is "+port);
 var host = "0.0.0.0";
-function generatebuttons(textarray,callbackdataarray){
+function generatebuttons(textarray,callbackdataarray,chatId){
   var firstopts = {}
   firstopts.resize_keyboard = true;
   firstopts.one_time_keyboard = true;
   firstopts.inline_keyboard = []
   for (var i =0;i < textarray.length;i++){
       var arrayer = [];
-      arrayer.push({text: textarray[i],callback_data: callbackdataarray[i]});
+      arrayer.push({text: textarray[i],callback_data: callbackdataarray[i]+":"+chatId});
       firstopts.inline_keyboard.push(arrayer);
   }   
   var secondopts = JSON.stringify(firstopts);
@@ -131,7 +131,7 @@ bot.onText(/\/nep/, function (msg) {
     }
   var secondopts = JSON.stringify(firstopts);
   var thirdopts = { reply_markup: secondopts }*/
-  var thirdopts = generatebuttons(["Nep","NepNep"],["nep","nepnep"]);
+  var thirdopts = generatebuttons(["Nep","NepNep"],["nep","nepnep"],fromId);
   console.log(thirdopts);
   bot.sendMessage(fromId, nep, thirdopts).then(function (sended) {
     var chatId = sended.chat.id;
@@ -144,10 +144,13 @@ bot.onText(/\/nep/, function (msg) {
 bot.on("callback_query",function(msg){
     var user = msg.from.id;
     var data = msg.data;
-    if(msg.data == "nep"){
-        bot.sendMessage(msg.from.id,"Nep!");
-    }else if(msg.data == "nepnep"){
-        bot.sendMessage(msg.from.id,"Nep!Nep!");
+    var array = data.split(":");
+    var command = array[0]
+    var chatId = array[1]
+    if(command == "nep"){
+        bot.sendMessage(chatId,"Nep!");
+    }else if(command == "nepnep"){
+        bot.sendMessage(chatId,"Nep!Nep!");
         
     }else{
         

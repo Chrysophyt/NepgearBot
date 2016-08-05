@@ -130,7 +130,7 @@ bot.onText(/\/nep/, function (msg) {
     }
   var secondopts = JSON.stringify(firstopts);
   var thirdopts = { reply_markup: secondopts }*/
-  var thirdopts = generatebuttons(["Nep","NepNep"],["nep","nepnep");
+  var thirdopts = generatebuttons(["Nep","NepNep"],["nep","nepnep"]);
   console.log(thirdopts);
   bot.sendMessage(fromId, nep, thirdopts).then(function (sended) {
     var chatId = sended.chat.id;

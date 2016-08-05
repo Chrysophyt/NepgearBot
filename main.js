@@ -90,7 +90,7 @@ bot.onText(/\/setwaifu/, function (msg) {
       if(err) throw err;
       console.log(rows.length);
       if (rows.length == 0 ){
-        con.query("INSERT INTO waifu (user_id, waifu) SET ?",{user_id: waifuId,waifu: waifu},function(err,rows){if(err) throw err;console.log("Insert");});
+        con.query("INSERT INTO waifu (user_id, waifu) VALUES ( ? , ? )",[waifuId,waifu],function(err,rows){if(err) throw err;console.log("Insert");});
       }else{
         con.query("UPDATE waifu SET waifu = ? WHERE user_id = ?",[waifu,waifuId],function(err,rows){if(err) throw err;console.log("Update");});
       }

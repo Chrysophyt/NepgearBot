@@ -29,9 +29,9 @@ var con = mysql.createConnection({
   database : "nepgear"
 });
 
-con.query("SHOW TABLES LIKE 'waifu'",function(err,rows){
+con.query("SELECT * FROM information_schema.tables WHERE table_schema = 'nepgear' AND table_name = 'waifu'",function(err,rows){
 if(err) throw err;
-if(rows.length > 0){
+if(rows.length = 0){
   console.log("No waifu table");
 }
 });

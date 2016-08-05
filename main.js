@@ -378,7 +378,7 @@ function mode(arr) {
 
 function executing(){
     var executed = mode(werewolfVoted);
-    werewolfText.push("Warga menyetujui untuk mengeksekusi "+werewolfPlayersName[werewolfPlayersId.indexOf(executed)]+". "+werewolfPlayersName[werewolfPlayersId.indexOf(executed)]" adalah seorang "+werewolfRoles[werewolfPlayersId.indexOf(executed)]);
+    werewolfText.push("Warga menyetujui untuk mengeksekusi "+werewolfPlayersName[werewolfPlayersId.indexOf(executed)]+". "+werewolfPlayersName[werewolfPlayersId.indexOf(executed)]+" adalah seorang "+werewolfRoles[werewolfPlayersId.indexOf(executed)]);
     werewolfIsAlive[werewolfPlayersId.indexOf(executed)] == "no";
 }
 function werewolfaction(){

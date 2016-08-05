@@ -13,6 +13,7 @@ var werewolfPlayersId = [];
 var werewolfPlayersName = [];
 var werewolfRoles = [];
 var werewolfIsAlive = [];
+var werewolfKillingThisRound = [];
 
 var port = 8080;
 console.log("Port is "+port);
@@ -147,15 +148,16 @@ bot.on("callback_query",function(msg){
     var array = data.split(":");
     var command = array[0]
     var chatId = array[1]
+    console.log(msg.from.first_name+":"+data);
     if(command == "nep"){
         bot.sendMessage(chatId,"Nep!");
     }else if(command == "nepnep"){
         bot.sendMessage(chatId,"Nep!Nep!");
         
-    }else{
-        
+    }else if(command.split(",")[0] == "kill"){
+        bot.sendMessage(chatId,"Anda telah memutuskan untuk memakan "+werewolfPlayersName[werewolfPlayersId.indexOf(command.split(",")[1])]);
     }
-    console.log(msg.from.first_name+":"+data);
+    bot.answerCallbackQuery(msg.id,"",false);
 });
 bot.onText(/\/setwaifu/, function (msg) {
   console.log("/setwaifu");
@@ -292,6 +294,9 @@ werewolfRoles = [];
 werewolfIsAlive = [];
 }
 
+function day(){
+    
+}
 function checkstatus(){
     var werewolfcount =0;
     var villagercount =0;
@@ -315,15 +320,31 @@ function checkstatus(){
             cleanwerewolf();
         }
     }else{
-        bot.sendMessage(werewolfGroupId, "Malam hari. Kebanyakan orang mulai tidur, namun ada aja yang bangun, berkeliaran dan menjalankan aksinya.");
+        bot.sendMessage(werewolfGroupId, "Malam hari. Kebanyakan orang mulai tidur, namun ada aja yang bangun, berkeliaran dan menjalankan aksinya. Pemain malam hari, kalian punya waktu 120 detik untuk menjalankan aksi.");
         setTimeout(werewolfaction,1000);
+        setTimeout(day,121000);
+        
     }
+    
 }
 function werewolfaction(){
     for (var i = 0; i < werewolfPlayersName.length;i++){
         if(werewolfIsAlive[i]){
             if(werewolfRoles[i] == "werewolf"){
-                bot.sendMessage(werewolfPlayersId[i],"Anda bisa membunuh!");
+                var textarr = [];
+                var callbackarr = [];
+                for (int j = 0;j < werewolfPlayersName.length;j++){
+                    if (werewolfPlayersId[i] == werewolfPlayersId[j]) {
+                        
+                    }else{
+                    textarr.push(werewolfPlayersName[j]);
+                    callbackarr.push("kill,"+werewolfPlayersId[j]);
+                    }
+                }
+                var thirdopts = generatebuttons(textarr,callbackarr,werewolfPlayersId[i]);
+                bot.sendMessage(werewolfPlayersId[i],"Anda bisa memakan seseorang sekarang. Pilih siapa yang akan Anda makan.",thirdopts);
+                
+  
             }else if(werewolfRoles[i] == "villager"){
                 
             }

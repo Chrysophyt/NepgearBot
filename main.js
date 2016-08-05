@@ -2,6 +2,7 @@ var bodyParser = require('body-parser');
 var express = require('express');
 var fs = require('fs');
 var http = require('http');
+var mysql = require('mysql');
 
 var TelegramBot = require('node-telegram-bot-api');
 
@@ -9,13 +10,6 @@ var token = '264518223:AAGeLZ5-gVfH6ZgILNFrvFlEyZtpk_dzLx0';
 var port = 8080;
 console.log("Port is "+port);
 var host = "0.0.0.0";
-
-var forcereplyopts = {
-  reply_markup: JSON.stringify(
-    {
-      force_reply: true
-    }
-  )};
 
 var inlineopts = {
   reply_markup: JSON.stringify(
@@ -27,6 +21,26 @@ var inlineopts = {
   )};
 console.log("Starting NepgearBot");
 var bot = new TelegramBot(token, {polling: true});
+
+var con = mysql.createConnection({
+  host: "172.30.194.104",
+  user: "nepgear",
+  password: "a9b8c7d6"
+});
+
+con.connect(function(err){
+  if(err){
+    console.log('Error connecting to Db');
+    return;
+  }
+  console.log('Connection established');
+});
+
+con.end(function(err) {
+  // The connection is terminated gracefully
+  // Ensures all previously enqueued queries are still
+  // before sending a COM_QUIT packet to the MySQL server.
+});
 
 var app = express();
 app.use(bodyParser.json());
@@ -64,8 +78,6 @@ bot.onText(/\/nep/, function (msg) {
       bot.sendMessage(message.chat.id,"Nep!");
     });
   });
-
-
 });
 
 

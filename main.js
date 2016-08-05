@@ -108,7 +108,7 @@ bot.onText(/\/nep/, function (msg) {
 bot.on("callback_query",function(msg){
     var user = msg.from.id;
     var data = msg.data;
-    console.log(data);
+    console.log(msg.user.first_name+":"+data);
 });
 bot.onText(/\/setwaifu/, function (msg) {
   console.log("/setwaifu");
@@ -232,21 +232,7 @@ bot.onText(/\/help/, function (msg) {
  bot.onText(/\/joinwerewolf/, function (msg) {
   console.log("/joinwerewolf");
   console.log(msg.chat.type);
-  var fromId = msg.chat.id;
-  var userFirst = msg.from.first_name;
-  var userLast = msg.from.last_name || "";
-  if (msg.chat.type == "group"){
-    if(werewolfGroupId == fromId){
-      werewolfPlayersId.push(msg.from.id);
-      werewolfPlayersName.push(userFirst+" "+userLast);
-      bot.sendMessage(fromId, userFirst+" "+userLast+" telah bergabung dalam permainan Werewolf@NepgearBot");
-    }else{
-      bot.sendMessage(fromId, "Anda bukan dalam grup yang ditetapkan untuk permainan Werewolf@NepgearBot");
-    }
-  }else{
-     bot.sendMessage(fromId, "Perintah ini hanya dapat digunakan dalam grup.");
-  }
-
+  join(msg);
 });
 
 
@@ -261,10 +247,29 @@ function cleanwerewolf(){
 function startwerewolf(){
 
 }
-
+function join(msg){
+  var fromId = msg.chat.id;
+  var userFirst = msg.from.first_name;
+  var userLast = msg.from.last_name || "";
+  if (msg.chat.type == "group"){
+    if(werewolfGroupId == fromId){
+     if(werewolfPlayersId.indexOf(msg.from.id)== -1){
+          werewolfPlayersId.push(msg.from.id);
+      werewolfPlayersName.push(userFirst+" "+userLast);
+      bot.sendMessage(fromId, userFirst+" "+userLast+" telah bergabung dalam permainan Werewolf@NepgearBot");
+     }else{
+       bot.sendMessage(fromId,"Kamu sudah join! Tunggu permainannya dimulai, ya!");   
+     }
+    }else{
+      bot.sendMessage(fromId, "Anda bukan dalam grup yang ditetapkan untuk permainan Werewolf@NepgearBot");
+    }
+  }else{
+     bot.sendMessage(fromId, "Perintah ini hanya dapat digunakan dalam grup.");
+  }
+}
 
  bot.onText(/\/createwerewolf/, function (msg) {
-  console.log("/createwerewolf");
+       console.log("/createwerewolf");
   console.log(msg.chat.type);
   var fromId = msg.chat.id;
   var userFirst = msg.from.first_name;
@@ -274,11 +279,12 @@ function startwerewolf(){
           werewolfGroupId = msg.chat.id;
           werewolfGroupName = msg.chat.title;
           bot.sendMessage(fromId, userFirst+" "+userLast+" telah menetapkan room "+msg.chat.title+" untuk Werewolf@NepgearBot");  
+          join(msg);
       }else{
           bot.sendMessage(fromId,"Grup "+werewolfGroupName+" telah menggunakan room untuk Werewolf@NepgearBot");        
       }
   }else{
      bot.sendMessage(fromId, "Perintah ini hanya dapat digunakan dalam grup.");
-  }
+  } 
 });
  

@@ -29,13 +29,11 @@ var con = mysql.createConnection({
   database : "nepgear"
 });
 
-con.connect(function(err){
-  if(err){
-    console.log('Error connecting to Db');
-    return;
-  }
-  console.log('Connection established');
-  
+con.query("SHOW TABLES LIKE waifu",function(err,rows){
+if(err) throw err;
+if(rows.length > 0){
+  console.log("No waifu table");
+}
 });
 
 var app = express();

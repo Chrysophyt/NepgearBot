@@ -310,8 +310,12 @@ function join(msg){
           werewolfGroupId = msg.chat.id;
           werewolfGroupName = msg.chat.title;
           bot.sendMessage(fromId, userFirst+" "+userLast+" telah menetapkan room "+msg.chat.title+" untuk Werewolf@NepgearBot");  
-          bot.sendMessage(fromId, "Permainan akan dimulai dalam 300 detik");
-          setTimeout(startwerewolf,300000);
+          bot.sendMessage(fromId, "Permainan akan dimulai dalam 3 menit");
+          setTimeout(startwerewolf, 180000);
+          setTimeout(function(){bot.sendMessage(fromId,"Werewolf@NepgearBot akan dimulai dalam 2 menit. Cepat join!");},60000);
+          setTimeout(function(){bot.sendMessage(fromId,"Werewolf@NepgearBot akan dimulai dalam 1 menit. Cepat join!");},120000);
+          setTimeout(function(){bot.sendMessage(fromId,"Werewolf@NepgearBot akan dimulai dalam 30 detik. Cepat join!");},150000);
+          setTimeout(function(){bot.sendMessage(fromId,"Werewolf@NepgearBot akan dimulai dalam 10 detik. Cepat join!");},170000);
           join(msg);
       }else{
           bot.sendMessage(fromId,"Grup "+werewolfGroupName+" telah menggunakan room untuk Werewolf@NepgearBot");        

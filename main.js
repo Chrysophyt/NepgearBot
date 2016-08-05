@@ -11,10 +11,30 @@ var werewolfGroupId = 0;
 var werewolfGroupName = "";
 var werewolfPlayersId = [];
 var werewolfPlayersName = [];
+var werewolfRoles = [];
 
 var port = 8080;
 console.log("Port is "+port);
 var host = "0.0.0.0";
+
+function shuffle(array) {
+  var currentIndex = array.length, temporaryValue, randomIndex;
+
+  // While there remain elements to shuffle...
+  while (0 !== currentIndex) {
+
+    // Pick a remaining element...
+    randomIndex = Math.floor(Math.random() * currentIndex);
+    currentIndex -= 1;
+
+    // And swap it with the current element.
+    temporaryValue = array[currentIndex];
+    array[currentIndex] = array[randomIndex];
+    array[randomIndex] = temporaryValue;
+  }
+
+  return array;
+}
 
 var forcereplyopts = {
   reply_markup: JSON.stringify(
@@ -241,11 +261,22 @@ function cleanwerewolf(){
     werewolfGroupName = "";
     werewolfPlayersId = [];
     werewolfPlayersName = [];
+    werewolfRoles = [];
 }
 
 
 function startwerewolf(){
-
+    var unrandom = []
+    for (var i = 0; i < werewolfPlayersName.length - 1;i++){
+        unrandom.push("villager");
+    }
+    unrandom.push("werewolf");
+    var random = shuffle(unrandom);
+    werewolfRoles = random;
+    for (var i = 0; i < werewolfPlayersName.length ;i++){
+        console.log(werewolfPlayersName[i]+" is "+werewolfRoles[i]);
+    }
+    
 }
 function join(msg){
   var fromId = msg.chat.id;
@@ -279,6 +310,8 @@ function join(msg){
           werewolfGroupId = msg.chat.id;
           werewolfGroupName = msg.chat.title;
           bot.sendMessage(fromId, userFirst+" "+userLast+" telah menetapkan room "+msg.chat.title+" untuk Werewolf@NepgearBot");  
+          bot.sendMessage(fromId, "Permainan akan dimulai dalam 300 detik");
+          setTimeout(startwerewolf,300000);
           join(msg);
       }else{
           bot.sendMessage(fromId,"Grup "+werewolfGroupName+" telah menggunakan room untuk Werewolf@NepgearBot");        

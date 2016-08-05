@@ -31,9 +31,7 @@ var con = mysql.createConnection({
 
 con.query("SELECT * FROM information_schema.tables WHERE table_schema = 'nepgear' AND table_name = 'waifu'",function(err,rows){
 if(err) throw err;
-if(rows.length = 0){
-  console.log("No waifu table");
-}
+console.log(rows.length);
 });
 
 var app = express();

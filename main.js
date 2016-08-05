@@ -107,8 +107,8 @@ server.listen(port, function () {
 });
 
 bot.setWebHook('https://nepgearbot-nepgearbot.44fs.preview.openshiftapps.com:443/nepgears',__dirname+'/crt.pem');
-var starttext = "Ini adalah NepgearBot, bot milik Ryo Kenrie Wongso (Damillora). Berjalan di OpenShift dan Node.js";
-var helptext = "NepgearBot: bot punya Ryo. Lapor semua bug ke Ryo.";
+var starttext = "Terima kasih karena sudah menggunakan NepgearBot! NepgearBot adalah 'best waifu bot' milik Ryo Kenrie (Damillora). BETA: Implementasi game Werewolf secara sederhana.";
+var helptext = "Ini adalah NepgearBot, bot milik Ryo Kenrie (Damillora), yang bisa digunakan untuk ngespam group, atau bermain Werewolf!";
 console.log("Started NepgearBot");
 
 // Matches /nep

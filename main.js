@@ -32,6 +32,9 @@ var con = mysql.createConnection({
 con.query("SELECT * FROM information_schema.tables WHERE table_schema = 'nepgear' AND table_name = 'waifu'",function(err,rows){
 if(err) throw err;
 console.log(rows.length);
+if (rows.length == 0 ){
+con.query("CREATE TABLE waifu (user_id int(16) NOT NULL, waifu varchar(128), PRIMARY KEY (id))",function(err,rows){if(err) throw err;console.log("Create table");});
+}
 });
 
 var app = express();
@@ -72,6 +75,31 @@ bot.onText(/\/nep/, function (msg) {
   });
 });
 
+bot.onText(/\/setwaifu/, function (msg) {
+  console.log("/nep");
+  var fromId = msg.chat.id;
+  var waifuId = msg.from.id;
+  var nep = "Type the name of your waifu"
+  bot.sendMessage(waifuId, nep,inlineopts).then(function (sended) {
+    var chatId = sended.chat.id;
+    var messageId = sended.message_id;
+    bot.onReplyToMessage(chatId, messageId, function (message) {
+      var waifu = message.text
+      console.log(waifuId);
+      con.query("SELECT * FROM waifu WHERE user_id = "+waifuId,function(err,rows){
+      if(err) throw err;
+      console.log(rows.length);
+      if (rows.length == 0 ){
+        con.query("INSERT INTO waifu (user_id, waifu) SET ?",{user_id: waifuId,waifu: waifu},function(err,rows){if(err) throw err;console.log("Insert");});
+      }else{
+        con.query("UPDATE waifu SET waifu = ? WHERE user_id = ?",[waifu,waifuId],function(err,rows){if(err) throw err;console.log("Update");});
+      }
+        
+      });\
+      bot.sendMessage(message.chat.id,"Waifu set!");
+    });
+  });
+});
 
 bot.onText(/\/lapar/, function (msg) {
   console.log("/lapar");

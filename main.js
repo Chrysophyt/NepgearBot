@@ -14,6 +14,9 @@ var werewolfPlayersName = [];
 var werewolfRoles = [];
 var werewolfIsAlive = [];
 var werewolfKillingThisRound = [];
+var werewolfHasAction = [];
+var werewolfKilled = [];
+var werewolfText = [];
 
 var port = 8080;
 console.log("Port is "+port);
@@ -156,6 +159,8 @@ bot.on("callback_query",function(msg){
         
     }else if(command.split(",")[0] == "kill"){
         bot.sendMessage(chatId,"Anda telah memutuskan untuk memakan "+werewolfPlayersName[werewolfPlayersId.indexOf(command.split(",")[1])]);
+        werewolfKilled.push(command.split(",")[1]);
+        werewolfText.push(werewolfPlayersName[werewolfPlayersId.indexOf(command.split(",")[1])]+" ditemukan telah hilang telinga kirinya! Ada sesuatu yang aneh...");
     }
     bot.answerCallbackQuery(msg.id,"",false);
 });
@@ -292,10 +297,21 @@ werewolfPlayersId = [];
 werewolfPlayersName = [];
 werewolfRoles = [];
 werewolfIsAlive = [];
+werewolfKillingThisRound = [];
+werewolfHasAction = [];
+werewolfKilled = [];
+werewolfText = [];
 }
 
 function day(){
-    
+    for (var i = 0; i < werewolfText.length - 1;i++){
+        bot.sendMessage(werewolfGroupId,werewolfText[i]);
+    }
+    var action = []
+    for (var i = 0; i < werewolfPlayersName.length - 1;i++){
+        action.push("no");
+    }
+    werewolfHasAction = action;
 }
 function checkstatus(){
     var werewolfcount =0;
@@ -322,10 +338,16 @@ function checkstatus(){
     }else{
         bot.sendMessage(werewolfGroupId, "Malam hari. Kebanyakan orang mulai tidur, namun ada aja yang bangun, berkeliaran dan menjalankan aksinya. Pemain malam hari, kalian punya waktu 120 detik untuk menjalankan aksi.");
         setTimeout(werewolfaction,1000);
+        setTimeout(killing,120000);
         setTimeout(day,121000);
         
     }
     
+}
+function killing(){
+    for(var i = 0;i<werewolfKilled.length;i++){
+        werewolfIsAlive[werewolfPlayersId.indexOf(werewolfKilled[i])] = "no";
+    }
 }
 function werewolfaction(){
     for (var i = 0; i < werewolfPlayersName.length;i++){
@@ -356,14 +378,17 @@ function startwerewolf(){
     
     var unrandom = []
     var alive = []
+    var action = []
     for (var i = 0; i < werewolfPlayersName.length - 1;i++){
         unrandom.push("villager");
         alive.push("yes");
+        action.push("no");
     }
     unrandom.push("werewolf");
     var random = shuffle(unrandom);
     werewolfRoles = random;
     werewolfIsAlive = alive;
+    werewolfHasAction = action;
     for (var i = 0; i < werewolfPlayersName.length ;i++){
         console.log(werewolfPlayersName[i]+" is "+werewolfRoles[i]);
     }

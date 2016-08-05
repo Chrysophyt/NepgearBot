@@ -20,7 +20,7 @@ var forcereplyopts = {
 var inlineopts = {
   reply_markup: JSON.stringify(
     {
-      inline_keyboard: {{{text: Nep}}}
+      inline_keyboard: [[{text: "Nep"}]]
     }
   )};
 console.log("Starting NepgearBot");

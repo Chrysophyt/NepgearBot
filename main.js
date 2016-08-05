@@ -144,7 +144,7 @@ bot.onText(/\/nep/, function (msg) {
 bot.on("callback_query",function(msg){
     var user = msg.from.id;
     var data = msg.data;
-    console.log(msg.user.first_name+":"+data);
+    console.log(msg.from.first_name+":"+data);
 });
 bot.onText(/\/setwaifu/, function (msg) {
   console.log("/setwaifu");

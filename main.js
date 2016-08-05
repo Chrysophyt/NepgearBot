@@ -3,10 +3,15 @@ var express = require('express');
 var fs = require('fs');
 var http = require('http');
 var mysql = require('mysql');
-
 var TelegramBot = require('node-telegram-bot-api');
 
 var token = '264518223:AAGeLZ5-gVfH6ZgILNFrvFlEyZtpk_dzLx0';
+
+var werewolfGroupId = 0;
+var werewolfGroupName = "";
+var werewolfPlayersId = [];
+var werewolfPlayersName = [];
+
 var port = 8080;
 console.log("Port is "+port);
 var host = "0.0.0.0";
@@ -82,7 +87,7 @@ bot.onText(/\/nep/, function (msg) {
   for (var i =0;i < myStringArray.length;i++){
       var arrayer = [];
       arrayer.push(myStringArray[i]);
-      keyboard.push(arrayer);
+      firstopts.keyboard.push(arrayer);
   }
   /*var firstopts =     {
       keyboard: [["Nep"]] ,
@@ -91,7 +96,8 @@ bot.onText(/\/nep/, function (msg) {
     }*/
   var secondopts = JSON.stringify(firstopts);
   var thirdopts = { reply_markup: secondopts }
-  bot.sendMessage(fromId, nep,thirdopts).then(function (sended) {
+  console.log(thirdopts);
+  bot.sendMessage(fromId, nep, thirdopts).then(function (sended) {
     var chatId = sended.chat.id;
     var messageId = sended.message_id;
     bot.onReplyToMessage(chatId, messageId, function (message) {
@@ -135,7 +141,6 @@ bot.onText(/\/setwaifu/, function (msg) {
      bot.sendMessage(msg.chat.id,"Perintah hanya dapat digunakan dalam personal chat dengan bot.");
   }
 });
-
 
 bot.onText(/\/waifu/, function (msg) {
   console.log("/waifu");
@@ -222,3 +227,56 @@ bot.onText(/\/help/, function (msg) {
   bot.sendMessage(fromId, helptext);
 });
 
+
+
+ bot.onText(/\/joinwerewolf/, function (msg) {
+  console.log("/joinwerewolf");
+  var fromId = msg.chat.id;
+  var userFirst = msg.from.first_name;
+  var userLast = msg.from.last_name || "";
+  if (msg.type == "group"{
+    if(werewolfGroupId == fromId){
+      werewolfPlayersId.push(msg.from.id);
+      werewolfPlayersName.push(userFirst+" "+userLast);
+      bot.sendMessage(fromId, userFirst+" "+userLast+" telah bergabung dalam permainan Werewolf@NepgearBot");
+    }else{
+      bot.sendMessage(fromId, "Anda bukan dalam grup yang ditetapkan untuk permainan Werewolf@NepgearBot");
+    }
+  }else{
+     bot.sendMessage(fromId, "Perintah ini hanya dapat digunakan dalam grup.");
+  }
+
+});
+
+
+function cleanwerewolf(){
+    werewolfGroupId = 0;
+    werewolfGroupName = "";
+    werewolfPlayersId = [];
+    werewolfPlayersName = [];
+}
+
+
+function startwerewolf(){
+
+}
+
+
+ bot.onText(/\/createwerewolf/, function (msg) {
+  console.log("/createwerewolf");
+  var fromId = msg.chat.id;
+  var userFirst = msg.from.first_name;
+  var userLast = msg.from.last_name || "";
+  if (msg.type == "group"{
+      if (werewolfGroupId == 0){
+          werewolfGroupId = msg.chat.id;
+          werewolfGroupName = msg.chat.title;
+          bot.sendMessage(fromId, userFirst+" "+userLast+" telah menetapkan room "+msg.chat.title+" untuk Werewolf@NepgearBot");  
+      }else{
+          bot.sendMessage(fromId,"Grup "+werewolfGroupName+" telah menggunakan room untuk Werewolf@NepgearBot");        
+      }
+  }else{
+     bot.sendMessage(fromId, "Perintah ini hanya dapat digunakan dalam grup.");
+  }
+});
+ 

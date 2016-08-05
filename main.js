@@ -21,6 +21,8 @@ var inlineopts = {
   reply_markup: JSON.stringify(
     {
       keyboard: [["Nep"]]
+      resize_keyboard: true
+      one_time_keyboard: true
     }
   )};
 console.log("Starting NepgearBot");

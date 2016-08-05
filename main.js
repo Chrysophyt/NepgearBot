@@ -450,7 +450,11 @@ console.log(werewolfText);
 }
 function startwerewolf(){
     console.log("Startwerewolf");
-    
+    if(werewolfPlayersName.length < 5){
+        bot.sendMessage(werewolfGroupId,"Yah. Pemain tidak cukup. Werewolf@NepgearBot membutuhkan setidaknya 5 pemain!");
+        cleanwerewolf();
+        return;
+    }
     var unrandom = []
     var alive = []
     var action = []

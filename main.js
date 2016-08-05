@@ -120,7 +120,7 @@ bot.onText(/\/waifu/, function (msg) {
       if (rows.length == 0 ){
           bot.sendMessage(fromId,"Orang ini belum punya waifu :v");
       }else{
-          bot.sendMessage(fromId,"Waifu orang ini adalah "+rows);
+          bot.sendMessage(fromId,"Waifu orang ini adalah "+rows[1].waifu);
       }
         
       });

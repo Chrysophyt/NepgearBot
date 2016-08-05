@@ -288,7 +288,7 @@ function checkstatus(){
         
         console.log(werewolfIsAlive[i]);
         console.log(werewolfRoles[i]);
-        if(werewolfIsAlive[i]){
+        if(werewolfIsAlive[i] == "yes"){
             if(werewolfRoles[i] == "werewolf"){
                 werewolfcount = werewolfcount + 1;
             }else if(werewolfRoles[i] == "villager"){
@@ -326,7 +326,7 @@ function startwerewolf(){
     var alive = []
     for (var i = 0; i < werewolfPlayersName.length - 1;i++){
         unrandom.push("villager");
-        alive.push(true);
+        alive.push("yes");
     }
     unrandom.push("werewolf");
     var random = shuffle(unrandom);

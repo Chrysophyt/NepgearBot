@@ -33,7 +33,7 @@ server.listen(port, function () {
 });
 
 bot.setWebHook('https://nepgearbot-nepgearbot.44fs.preview.openshiftapps.com:443/nepgears',__dirname+'/crt.pem');
-var starttext = "Ini adalah NepgearBot, bot milik Ryo Kenrie Wongso (Damillora). Saat ini hanya untuk coba-coba. Versi adalah 0.2";
+var starttext = "Ini adalah NepgearBot, bot milik Ryo Kenrie Wongso (Damillora). Berjalan di OpenShift dan Node.js";
 var helptext = "NepgearBot: bot punya Ryo. Lapor semua bug ke Ryo.";
 console.log("Started NepgearBot");
 

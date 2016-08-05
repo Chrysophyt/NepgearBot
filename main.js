@@ -314,6 +314,16 @@ function day(){
     werewolfHasAction = action;
 }
 function checkstatus(){
+    console.log(werewolfGroupId);
+console.log(werewolfGroupName);
+console.log(werewolfPlayersId);
+console.log(werewolfPlayersName);
+console.log(werewolfRoles);
+console.log(werewolfIsAlive);
+console.log(werewolfKillingThisRound);
+console.log(werewolfHasAction);
+console.log(werewolfKilled);
+console.log(werewolfText);
     var werewolfcount =0;
     var villagercount =0;
     for (var i = 0; i < werewolfPlayersName.length ;i++){

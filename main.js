@@ -25,7 +25,7 @@ var bot = new TelegramBot(token, {polling: true});
 var con = mysql.createConnection({
   host: process.env.NEPGEARSQL_PORT_3306_TCP_ADDR,
   user: "nepgear",
-  password: "a9b8c7d6"
+  password: "a9b8c7d6",
   database : "nepgear"
 });
 

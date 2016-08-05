@@ -95,7 +95,7 @@ bot.onText(/\/setwaifu/, function (msg) {
         con.query("UPDATE waifu SET waifu = ? WHERE user_id = ?",[waifu,waifuId],function(err,rows){if(err) throw err;console.log("Update");});
       }
         
-      });\
+      });
       bot.sendMessage(message.chat.id,"Waifu set!");
     });
   });

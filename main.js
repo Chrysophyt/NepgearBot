@@ -33,7 +33,8 @@ con.query("SELECT * FROM information_schema.tables WHERE table_schema = 'nepgear
 if(err) throw err;
 console.log(rows.length);
 if (rows.length == 0 ){
-con.query("CREATE TABLE waifu (user_id int(16) NOT NULL, waifu varchar(128), PRIMARY KEY (id))",function(err,rows){if(err) throw err;console.log("Create table");});
+con.query("CREATE TABLE waifu (user_id int(16) NOT NULL, waifu varchar(128), PRIMARY KEY 
+(uesr_id))",function(err,rows){if(err) throw err;console.log("Create table");});
 }
 });
 

@@ -29,7 +29,7 @@ var con = mysql.createConnection({
   database : "nepgear"
 });
 
-con.query("SHOW TABLES LIKE waifu",function(err,rows){
+con.query("SHOW TABLES LIKE 'waifu'",function(err,rows){
 if(err) throw err;
 if(rows.length > 0){
   console.log("No waifu table");

@@ -266,6 +266,7 @@ function cleanwerewolf(){
 
 
 function startwerewolf(){
+    console.log("Startwerewolf");
     var unrandom = []
     for (var i = 0; i < werewolfPlayersName.length - 1;i++){
         unrandom.push("villager");

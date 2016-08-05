@@ -13,6 +13,7 @@ var werewolfPlayersId = [];
 var werewolfPlayersName = [];
 var werewolfRoles = [];
 var werewolfIsAlive = [];
+
 var port = 8080;
 console.log("Port is "+port);
 var host = "0.0.0.0";
@@ -322,13 +323,15 @@ function startwerewolf(){
     console.log("Startwerewolf");
     
     var unrandom = []
+    var alive = []
     for (var i = 0; i < werewolfPlayersName.length - 1;i++){
         unrandom.push("villager");
-        werewolfIsAlive.push(true);
+        alive.push(true);
     }
     unrandom.push("werewolf");
     var random = shuffle(unrandom);
     werewolfRoles = random;
+    werewolfIsAlive = alive;
     for (var i = 0; i < werewolfPlayersName.length ;i++){
         console.log(werewolfPlayersName[i]+" is "+werewolfRoles[i]);
     }

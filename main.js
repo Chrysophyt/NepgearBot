@@ -16,6 +16,20 @@ var werewolfIsAlive = [];
 var port = 8080;
 console.log("Port is "+port);
 var host = "0.0.0.0";
+function generatebuttons(textarray,callbackdataarray){
+  var firstopts = {}
+  firstopts.resize_keyboard = true;
+  firstopts.one_time_keyboard = true;
+  firstopts.inline_keyboard = []
+  for (var i =0;i < textarray.length;i++){
+      var arrayer = [];
+      arrayer.push({text: textarray[i],callback_data: callbackdataarray[i]});
+      firstopts.inline_keyboard.push(arrayer);
+  }   
+  var secondopts = JSON.stringify(firstopts);
+  var thirdopts = { reply_markup: secondopts }
+  return thirdopts;
+}
 
 function shuffle(array) {
   var currentIndex = array.length, temporaryValue, randomIndex;
@@ -99,7 +113,7 @@ bot.onText(/\/nep/, function (msg) {
   var fromId = msg.chat.id;
   var nep = "Nep"
   
-  var firstopts = {}
+  /*var firstopts = {}
   firstopts.resize_keyboard = true;
   firstopts.one_time_keyboard = true;
   var myStringArray = ["Nep","NepNep"]
@@ -108,14 +122,15 @@ bot.onText(/\/nep/, function (msg) {
       var arrayer = [];
       arrayer.push(myStringArray[i]);
       firstopts.keyboard.push(arrayer);
-  }
+  }*/
   /*var firstopts =     {
       keyboard: [["Nep"]] ,
       resize_keyboard: true ,
       one_time_keyboard: true
-    }*/
+    }
   var secondopts = JSON.stringify(firstopts);
-  var thirdopts = { reply_markup: secondopts }
+  var thirdopts = { reply_markup: secondopts }*/
+  var thirdopts = generatebuttons(["Nep","NepNep"],["nep","nepnep");
   console.log(thirdopts);
   bot.sendMessage(fromId, nep, thirdopts).then(function (sended) {
     var chatId = sended.chat.id;

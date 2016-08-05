@@ -277,6 +277,8 @@ function checkstatus(){
             }
         }
     }
+    console.log(werewolfcount);
+    console.log(villagercount);
     if (villagercount == 0){
         if (werewolfcount > 0){
             bot.sendMessage(werewolfGroupId,"Serigala menang!");

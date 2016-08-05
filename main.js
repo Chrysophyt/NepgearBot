@@ -234,7 +234,7 @@ bot.onText(/\/help/, function (msg) {
   var fromId = msg.chat.id;
   var userFirst = msg.from.first_name;
   var userLast = msg.from.last_name || "";
-  if (msg.type == "group"{
+  if (msg.type == "group"){
     if(werewolfGroupId == fromId){
       werewolfPlayersId.push(msg.from.id);
       werewolfPlayersName.push(userFirst+" "+userLast);
@@ -267,7 +267,7 @@ function startwerewolf(){
   var fromId = msg.chat.id;
   var userFirst = msg.from.first_name;
   var userLast = msg.from.last_name || "";
-  if (msg.type == "group"{
+  if (msg.type == "group"){
       if (werewolfGroupId == 0){
           werewolfGroupId = msg.chat.id;
           werewolfGroupName = msg.chat.title;

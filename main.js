@@ -308,14 +308,56 @@ werewolfText = [];
 }
 
 function day(){
-    for (var i = 0; i < werewolfText.length - 1;i++){
+    for (var i = 0; i < werewolfText.length;i++){
         bot.sendMessage(werewolfGroupId,werewolfText[i]);
     }
     var action = []
-    for (var i = 0; i < werewolfPlayersName.length - 1;i++){
+    for (var i = 0; i < werewolfPlayersName.length;i++){
         action.push("no");
     }
     werewolfHasAction = action;
+    bot.sendMessage(werewolfGroupId,"Pagi hari. Semua orang terbangun. Ada berita terbaru?");
+    for (var i = 0; i < werewolfText.length;i++){
+        bot.sendMessage(werewolfGroupId,werewolfText[i]);
+    }
+    checkstatus();
+    werewolfText = [];
+}
+
+function killing(){
+    for(var i = 0;i<werewolfKilled.length;i++){
+        werewolfIsAlive[werewolfPlayersId.indexOf(werewolfKilled[i])] = "no";
+    }
+}
+function werewolfaction(){
+    for (var i = 0; i < werewolfPlayersName.length;i++){
+        if(werewolfIsAlive[i] == "yes"){
+            if(werewolfRoles[i] == "werewolf"){
+                var textarr = [];
+                var callbackarr = [];
+                for (var j = 0;j < werewolfPlayersName.length;j++){
+                    if (werewolfPlayersId[i] == werewolfPlayersId[j]) {
+                        
+                    }else{
+                    textarr.push(werewolfPlayersName[j]);
+                    callbackarr.push("kill,"+werewolfPlayersId[j]);
+                    }
+                }
+                var thirdopts = generatebuttons(textarr,callbackarr,werewolfPlayersId[i]);
+                bot.sendMessage(werewolfPlayersId[i],"Anda bisa memakan seseorang sekarang. Pilih siapa yang akan Anda makan.",thirdopts);
+                
+  
+            }else if(werewolfRoles[i] == "villager"){
+                
+            }
+        }
+    }
+}
+function night(){
+    bot.sendMessage(werewolfGroupId, "Malam hari. Kebanyakan orang mulai tidur, namun ada aja yang bangun, berkeliaran dan menjalankan aksinya. Pemain malam hari, kalian punya waktu 120 detik untuk menjalankan aksi.");
+        setTimeout(werewolfaction,1000);
+        setTimeout(killing,120000);
+        setTimeout(day,121000);
 }
 function checkstatus(){
     console.log(werewolfGroupId);
@@ -349,42 +391,10 @@ console.log(werewolfText);
             cleanwerewolf();
         }
     }else{
-        bot.sendMessage(werewolfGroupId, "Malam hari. Kebanyakan orang mulai tidur, namun ada aja yang bangun, berkeliaran dan menjalankan aksinya. Pemain malam hari, kalian punya waktu 120 detik untuk menjalankan aksi.");
-        setTimeout(werewolfaction,1000);
-        setTimeout(killing,120000);
-        setTimeout(day,121000);
+        
         
     }
     
-}
-function killing(){
-    for(var i = 0;i<werewolfKilled.length;i++){
-        werewolfIsAlive[werewolfPlayersId.indexOf(werewolfKilled[i])] = "no";
-    }
-}
-function werewolfaction(){
-    for (var i = 0; i < werewolfPlayersName.length;i++){
-        if(werewolfIsAlive[i] == "yes"){
-            if(werewolfRoles[i] == "werewolf"){
-                var textarr = [];
-                var callbackarr = [];
-                for (var j = 0;j < werewolfPlayersName.length;j++){
-                    if (werewolfPlayersId[i] == werewolfPlayersId[j]) {
-                        
-                    }else{
-                    textarr.push(werewolfPlayersName[j]);
-                    callbackarr.push("kill,"+werewolfPlayersId[j]);
-                    }
-                }
-                var thirdopts = generatebuttons(textarr,callbackarr,werewolfPlayersId[i]);
-                bot.sendMessage(werewolfPlayersId[i],"Anda bisa memakan seseorang sekarang. Pilih siapa yang akan Anda makan.",thirdopts);
-                
-  
-            }else if(werewolfRoles[i] == "villager"){
-                
-            }
-        }
-    }
 }
 function startwerewolf(){
     console.log("Startwerewolf");
@@ -409,6 +419,7 @@ function startwerewolf(){
     }
     bot.sendMessage(werewolfGroupId,"Permainan Werewolf@NepgearBot sudah dimulai!");
     checkstatus();
+    night();
 }
 function join(msg){
   var fromId = msg.chat.id;

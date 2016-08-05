@@ -268,12 +268,15 @@ werewolfIsAlive = [];
 function checkstatus(){
     var werewolfcount =0;
     var villagercount =0;
-    for (var i = 0; i < werewolfPlayersName.length - 1;i++){
+    for (var i = 0; i < werewolfPlayersName.length ;i++){
+        
+        console.log(werewolfIsAlive[i]);
+        console.log(werewolfRoles[i]);
         if(werewolfIsAlive[i]){
             if(werewolfRoles[i] == "werewolf"){
-                werewolfcount++;
+                werewolfcount = werewolfcount + 1;
             }else if(werewolfRoles[i] == "villager"){
-                villagercount++;
+                villagercount = villagercount +1 ;
             }
         }
     }
@@ -290,7 +293,7 @@ function checkstatus(){
     }
 }
 function werewolfaction(){
-    for (var i = 0; i < werewolfPlayersName.length - 1;i++){
+    for (var i = 0; i < werewolfPlayersName.length;i++){
         if(werewolfIsAlive[i]){
             if(werewolfRoles[i] == "werewolf"){
                 bot.sendMessage(werewolfPlayersId[i],"Anda bisa membunuh!");

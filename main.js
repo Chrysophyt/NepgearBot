@@ -26,6 +26,7 @@ var con = mysql.createConnection({
   host: process.env.NEPGEARSQL_PORT_3306_TCP_ADDR,
   user: "nepgear",
   password: "a9b8c7d6"
+  database : "nepgear"
 });
 
 con.connect(function(err){
@@ -34,12 +35,7 @@ con.connect(function(err){
     return;
   }
   console.log('Connection established');
-});
-
-con.end(function(err) {
-  // The connection is terminated gracefully
-  // Ensures all previously enqueued queries are still
-  // before sending a COM_QUIT packet to the MySQL server.
+  
 });
 
 var app = express();

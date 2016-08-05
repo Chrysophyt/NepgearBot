@@ -11,6 +11,13 @@ var port = 8080;
 console.log("Port is "+port);
 var host = "0.0.0.0";
 
+var forcereplyopts = {
+  reply_markup: JSON.stringify(
+    {
+      force_reply: true
+    }
+  )};
+  
 var inlineopts = {
   reply_markup: JSON.stringify(
     {
@@ -76,11 +83,11 @@ bot.onText(/\/nep/, function (msg) {
 });
 
 bot.onText(/\/setwaifu/, function (msg) {
-  console.log("/nep");
+  console.log("/setwaifu");
   var fromId = msg.chat.id;
   var waifuId = msg.from.id;
-  var nep = "Type the name of your waifu"
-  bot.sendMessage(waifuId, nep,inlineopts).then(function (sended) {
+  var nep = "Ketik nama waifu-mu :v"
+  bot.sendMessage(waifuId, nep,forcereplyopts).then(function (sended) {
     var chatId = sended.chat.id;
     var messageId = sended.message_id;
     bot.onReplyToMessage(chatId, messageId, function (message) {
@@ -96,9 +103,28 @@ bot.onText(/\/setwaifu/, function (msg) {
       }
         
       });
-      bot.sendMessage(message.chat.id,"Waifu set!");
+      bot.sendMessage(message.chat.id,"Waifu berhasil diset!");
     });
   });
+});
+
+
+bot.onText(/\/waifu/, function (msg) {
+  console.log("/waifu");
+  var fromId = msg.chat.id;
+  var waifuId = msg.from.id;
+      console.log(waifuId);
+      con.query("SELECT * FROM waifu WHERE user_id = "+waifuId,function(err,rows){
+      if(err) throw err;
+      console.log(rows.length);
+      if (rows.length == 0 ){
+          bot.sendMessage(fromId,"Orang ini belum punya waifu :v");
+      }else{
+          bot.sendMessage(fromId,"Waifu orang ini adalah "+rows[1].waifu);
+      }
+        
+      });
+      bot.sendMessage(message.chat.id,"Waifu set!");
 });
 
 bot.onText(/\/lapar/, function (msg) {

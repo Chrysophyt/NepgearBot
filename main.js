@@ -167,6 +167,7 @@ bot.on("callback_query",function(msg){
         }
         
     }else if(command.split(",")[0] == "vote"){
+    console.log(werewolfPlayersId.indexOf(chatId));
         if (werewolfHasAction[werewolfPlayersId.indexOf(command.split(",")[1])] == "yes") {
             bot.sendMessage(chatId,"Udah milih, woi!");
         }else{

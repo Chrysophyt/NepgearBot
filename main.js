@@ -481,7 +481,7 @@ function join(msg){
   var fromId = msg.chat.id;
   var userFirst = msg.from.first_name;
   var userLast = msg.from.last_name || "";
-  if (msg.chat.type == "group"){
+  if (msg.chat.type == "group" || msg.chat.type == "supergroup"){
     if(werewolfGroupId == fromId){
      if(werewolfPlayersId.indexOf(msg.from.id)== -1){
           werewolfPlayersId.push(msg.from.id);
@@ -504,7 +504,7 @@ function join(msg){
   var fromId = msg.chat.id;
   var userFirst = msg.from.first_name;
   var userLast = msg.from.last_name || "";
-  if (msg.chat.type == "group"){
+  if (msg.chat.type == "group" || msg.chat.type == "supergroup"){
       if (werewolfGroupId == 0){
           werewolfGroupId = msg.chat.id;
           werewolfGroupName = msg.chat.title;

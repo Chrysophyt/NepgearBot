@@ -3,6 +3,8 @@ var express = require('express');
 var fs = require('fs');
 var http = require('http');
 var mysql = require('mysql');
+var google = require('google');
+google.resultsPerPage = 10;
 var TelegramBot = require('node-telegram-bot-api');
 
 var token = '264518223:AAGeLZ5-gVfH6ZgILNFrvFlEyZtpk_dzLx0';
@@ -249,3 +251,15 @@ bot.onText(/\/help/, function (msg) {
   var fromId = msg.chat.id;
   bot.sendMessage(fromId, helptext);
 });
+
+bot.onText(/\/google/, function (msg){
+console.log("/google");
+  var fromId = msg.chat.id;
+bot.sendMessage(fromId, "Apa yg ingin anda cari?", thirdopts).then(function (sended) {
+    var chatId = sended.chat.id;
+    var messageId = sended.message_id;
+    bot.onReplyToMessage(chatId, messageId, function (message) {
+      var googlequery = msg.text;
+google(googlequery, function (err, res){ if (err) console.error(err) for (var i = 0; i < res.links.length; ++i) { var link = res.links[i]; 
+bot.sendMessage(message.chat.id),link.title + ' - ' + link.href+"\n"+link.description);} 
+  });});});});

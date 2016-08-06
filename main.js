@@ -260,6 +260,6 @@ bot.sendMessage(fromId, "Apa yg ingin anda cari?", thirdopts).then(function (sen
     var messageId = sended.message_id;
     bot.onReplyToMessage(chatId, messageId, function (message) {
       var googlequery = msg.text;
-google(googlequery, function (err, res){ if (err) console.error(err) for (var i = 0; i < res.links.length; ++i) { var link = res.links[i]; 
+google(googlequery, function (err, res){ if (err) console.error(err) ;for (var i = 0; i < res.links.length; ++i) { var link = res.links[i]; 
 bot.sendMessage(message.chat.id),link.title + ' - ' + link.href+"\n"+link.description);} 
   });});});});

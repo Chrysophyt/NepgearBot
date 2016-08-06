@@ -471,7 +471,7 @@ function startwerewolf(){
     werewolfIsAlive = alive;
     werewolfHasAction = action;
     for (var i = 0; i < werewolfPlayersName.length ;i++){
-        console.log(werewolfPlayersName[i]+" is "+werewolfRoles[i]);
+   bot.sendMessage(werewolfPlayersId[i],"Kamu adalah seorang "+werewolfRoles[i])     console.log(werewolfPlayersName[i]+" is "+werewolfRoles[i]);
     }
     bot.sendMessage(werewolfGroupId,"Permainan Werewolf@NepgearBot sudah dimulai!");
     checkstatus();

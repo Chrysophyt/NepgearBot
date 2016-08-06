@@ -4,7 +4,7 @@ var fs = require('fs');
 var http = require('http');
 var mysql = require('mysql');
 var google = require('google');
-google.resultsPerPage = 10;
+google.resultsPerPage = 5;
 var TelegramBot = require('node-telegram-bot-api');
 
 var token = '264518223:AAGeLZ5-gVfH6ZgILNFrvFlEyZtpk_dzLx0';

@@ -386,7 +386,7 @@ function werewolfaction(){
     for (var i = 0; i < werewolfPlayersName.length;i++){
         if(werewolfIsAlive[i] == "yes"){
             if(werewolfRoles[i] == "werewolf"){
-   console.log(werewolfPlayersName[i])             var textarr = [];
+   console.log(werewolfPlayersName[i]) ;            var textarr = [];
                 var callbackarr = [];
                 for (var j = 0;j < werewolfPlayersName.length;j++){
                     if (werewolfPlayersId[i] == werewolfPlayersId[j]) {

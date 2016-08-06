@@ -255,11 +255,11 @@ bot.onText(/\/help/, function (msg) {
 bot.onText(/\/google/, function (msg){
 console.log("/google");
   var fromId = msg.chat.id;
-bot.sendMessage(fromId, "Apa yg ingin anda cari?", thirdopts).then(function (sended) {
+bot.sendMessage(fromId, "Apa yg ingin anda cari?", forcereplyopts).then(function (sended) {
     var chatId = sended.chat.id;
     var messageId = sended.message_id;
     bot.onReplyToMessage(chatId, messageId, function (message) {
       var googlequery = msg.text;
 google(googlequery, function (err, res){ if (err) console.error(err) ;for (var i = 0; i < res.links.length; ++i) { var link = res.links[i]; 
-bot.sendMessage(message.chat.id),link.title + ' - ' + link.href+"\n"+link.description);} 
+bot.sendMessage(message.chat.id,link.title + ' - ' + link.href+"\n"+link.description);} 
   });});});});

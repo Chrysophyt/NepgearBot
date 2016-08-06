@@ -147,9 +147,9 @@ bot.onText(/\/nep/, function (msg) {
 bot.on("callback_query",function(msg){
     var user = msg.from.id;
     var data = msg.data;
-    var array = data.split(":");
-    var command = array[0]
-    var chatId = array[1]
+    var arrays = data.split(":");
+    var command = arrays[0]
+    var chatId = arrays[1]
     console.log(msg.from.first_name+":"+data);
     if(command == "nep"){
         bot.sendMessage(chatId,"Nep!");
@@ -160,15 +160,18 @@ bot.on("callback_query",function(msg){
         if (werewolfHasAction[werewolfPlayersId.indexOf(command.split(",")[1])] == "yes") {
             bot.sendMessage(chatId,"Udah kenyang, woi!");
         }else{
-            bot.sendMessage(chatId,"Anda telah memutuskan untuk memakan "+werewolfPlayersName[werewolfPlayersId.indexOf(command.split(",")[1])]);
+  console.log("att: "+werewolfPlayersId.indexOf(chatId));
+ console.log("vic:"+werewolfPlayersId.indexOf(command.split(",")[1]));          bot.sendMessage(chatId,"Anda telah memutuskan untuk memakan "+werewolfPlayersName[werewolfPlayersId.indexOf(command.split(",")[1])]);
         werewolfKilled.push(command.split(",")[1]);
-        werewolfHasAction[werewolfPlayersId.indexOf(command.split(",")[1])] = "yes";
+        werewolfHasAction[werewolfPlayersId.indexOf(chatId)] = "yes";
         werewolfText.push(werewolfPlayersName[werewolfPlayersId.indexOf(command.split(",")[1])]+" ditemukan telah hilang telinga kirinya! Ada sesuatu yang aneh. "+werewolfPlayersName[werewolfPlayersId.indexOf(command.split(",")[1])]+" adalah seorang "+werewolfRoles[werewolfPlayersId.indexOf(command.split(",")[1])]);
         }
         
     }else if(command.split(",")[0] == "vote"){
-    console.log(werewolfPlayersId.indexOf(chatId));
-        if (werewolfHasAction[werewolfPlayersId.indexOf(command.split(",")[1])] == "yes") {
+    console.log("cho:"+werewolfPlayersId.indexOf(chatId));
+ console.log("exe:"+werewolfPlayersId.indexOf(command.split(",")[1]));
+  
+        if (werewolfHasAction[werewolfPlayersId.indexOf(chatId)] == "yes") {
             bot.sendMessage(chatId,"Udah milih, woi!");
         }else{
             bot.sendMessage(werewolfGroupId,werewolfPlayersName[werewolfPlayersId.indexOf(chatId)]+" telah memutuskan untuk mengeksekusi "+werewolfPlayersName[werewolfPlayersId.indexOf(command.split(",")[1])]);

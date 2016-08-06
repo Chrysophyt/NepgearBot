@@ -509,12 +509,12 @@ function join(msg){
           werewolfGroupId = msg.chat.id;
           werewolfGroupName = msg.chat.title;
           bot.sendMessage(fromId, userFirst+" "+userLast+" telah menetapkan room "+msg.chat.title+" untuk Werewolf@NepgearBot");  
-          bot.sendMessage(fromId, "Permainan akan dimulai dalam 3 menit");
+          bot.sendMessage(fromId, "Permainan akan dimulai dalam 3 menit. Gabung dengan /joinwerewolf@Nepgearbot");
           setTimeout(startwerewolf, 180000);
-          setTimeout(function(){bot.sendMessage(fromId,"Werewolf@NepgearBot akan dimulai dalam 2 menit. Cepat join!");},60000);
-          setTimeout(function(){bot.sendMessage(fromId,"Werewolf@NepgearBot akan dimulai dalam 1 menit. Cepat join!");},120000);
-          setTimeout(function(){bot.sendMessage(fromId,"Werewolf@NepgearBot akan dimulai dalam 30 detik. Cepat join!");},150000);
-          setTimeout(function(){bot.sendMessage(fromId,"Werewolf@NepgearBot akan dimulai dalam 10 detik. Cepat join!");},170000);
+          setTimeout(function(){bot.sendMessage(fromId,"Werewolf@NepgearBot akan dimulai dalam 2 menit. Gabung dengan /joinwerewolf@NepgearBot");},60000);
+          setTimeout(function(){bot.sendMessage(fromId,"Werewolf@NepgearBot akan dimulai dalam 1 menit. Cepat gabung dengan /joinwerewolf@NepgearBot");},120000);
+          setTimeout(function(){bot.sendMessage(fromId,"Hanya tersisa 30 detik lagi untuk gabung ke Werewolf@NepgearBot!");},150000);
+          setTimeout(function(){bot.sendMessage(fromId,"Kesempatan terakhir untik bergabung dalam Werewolf@NepgearBot!");},170000);
           join(msg);
       }else{
           bot.sendMessage(fromId,"Grup "+werewolfGroupName+" telah menggunakan room untuk Werewolf@NepgearBot");        

@@ -1,4 +1,4 @@
-var bodyParser = require('body-parser');
+﻿var bodyParser = require('body-parser');
 var express = require('express');
 var fs = require('fs');
 var http = require('http');
@@ -116,7 +116,7 @@ bot.onText(/\/nep/, function (msg) {
     var chatId = sended.chat.id;
     var messageId = sended.message_id;
     bot.onReplyToMessage(chatId, messageId, function (message) {
-      bot.sendMessage(message.chat.id,"Nep!");
+      bot.sendMessage(message.chat.id,"cot!");
     });
   });
 });
